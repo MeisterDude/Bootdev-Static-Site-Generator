@@ -109,6 +109,40 @@ class TestHTMLNode(unittest.TestCase):
             "<h2><b>Bold text</b>Normal text<i>italic text</i>Normal text</h2>",
         )
 
+    def test_to_html(self):
+        node = ParentNode(
+            "div",
+            [
+                LeafNode("p", "Paragraph 1"),
+                LeafNode("p", "Paragraph 2"),
+            ],
+        )
+        self.assertEqual(
+            node.to_html(),
+            "<div><p>Paragraph 1</p><p>Paragraph 2</p></div>",
+        )
+        node = ParentNode(
+            "ol",
+            [
+                LeafNode("li", "List item 1"),
+                LeafNode("li", "List item 2"),
+                LeafNode("li", "List item 3"),
+            ],
+        )
+        self.assertEqual(
+            node.to_html(),
+            "<ol><li>List item 1</li><li>List item 2</li><li>List item 3</li></ol>",
+        )
+        #node = LeafNode(
+        #    "img",
+        #    "",
+        #    {"src": "https://example.com/image.png", "alt": "Example Image"},
+        #)
+        #self.assertEqual(
+        #    node.to_html(),
+        #    '<img src="https://example.com/image.png" alt="Example Image">',
+        #)
+
 
 if __name__ == "__main__":
     unittest.main()
