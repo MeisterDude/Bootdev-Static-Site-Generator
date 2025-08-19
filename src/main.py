@@ -60,7 +60,7 @@ def main():
     if len(sys.argv) < 2:
         basepath = "/"
     else:
-        basepath = sys.argv[1]
+        basepath = os.path.join(sys.argv[1], "docs")
         
     print(f"Running script from: {basepath}")
     copy_static_to_public()
