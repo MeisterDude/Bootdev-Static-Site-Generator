@@ -57,10 +57,10 @@ def generate_pages_directories(content_dir, public_dir, template_path, basepath)
 
 
 def main():
-    basepath = sys.argv[0]
+    basepath = sys.argv[1]
     if not basepath:
         basepath = "/"
-    #print(f"Running script from: {basepath}")
+    print(f"Running script from: {basepath}")
     copy_static_to_public()
     generate_pages(basepath)
 
