@@ -1,5 +1,6 @@
 
 import os
+import sys
 import shutil
 
 from generate_page import generate_page
@@ -27,7 +28,7 @@ def copy_dir(source, destination):
         else:
             shutil.copy(os.path.join(source, item), destination)
 
-def generate_pages():
+def generate_pages(basepath):
     """
     Generates pages by reading markdown files from the 'content' directory,
     processing them, and writing the output to the 'public' directory using a template.
@@ -37,7 +38,7 @@ def generate_pages():
     public_dir = os.path.join(os.getcwd(), 'public')
     generate_pages_directories(content_dir, public_dir, template_path)
 
-def generate_pages_directories(content_dir, public_dir, template_path):
+def generate_pages_directories(content_dir, public_dir, template_path, basepath):
     for filename in os.listdir(content_dir):
         
         if os.path.isdir(os.path.join(content_dir, filename)):
@@ -50,12 +51,17 @@ def generate_pages_directories(content_dir, public_dir, template_path):
             #print(f"Generating page for {filename}")
             from_path = os.path.join(content_dir, filename)
             dest_path = os.path.join(public_dir, filename.replace('.md', '.html').replace("content", "public"))
-            generate_page(from_path, template_path, dest_path)
+            generate_page(from_path, template_path, dest_path, basepath)
 
 
 def main():
+    basepath = sys.argv[0]
+    if not basepath:
+        basepath = "/"
+    #print(f"Running script from: {basepath}")
     copy_static_to_public()
-    generate_pages()
+    generate_pages(basepath)
+
 
 if __name__ == "__main__":
     main()

@@ -25,7 +25,7 @@ def extract_title(markdown):
         return heading, "\n".join(ret_lines)
     raise ValueError("No heading found in markdown content")
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     """
     Generates a page by reading content from a markdown file, processing it,
     and writing the output to a specified destination path using a template.
@@ -52,7 +52,7 @@ def generate_page(from_path, template_path, dest_path):
     html_content = html_node.to_html()
     template = template.replace("{{ Title }}", title)
     #print(title)
-    template = template.replace("{{ Content }}", html_content)
+    template = template.replace("{{ Content }}", html_content).replace("href=\"/\"", f'href="{basepath}"').replace("src=\"/\"", f'src="{basepath}"')
 
     with open(dest_path, 'w') as f:
         f.write(template)
