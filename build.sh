@@ -1,1 +1,1 @@
-python3 src/main.py "https://github.com/MeisterDude/Bootdev-Static-Site-Generator"
+python3 src/main.py "https://MeisterDude.github.io/Bootdev-Static-Site-Generator"
