@@ -11,7 +11,8 @@ def copy_static_to_public():
     Copies static files from the 'static' directory to the 'public' directory.
     """
     static_dir = os.path.join(os.getcwd(), 'static')
-    public_dir = os.path.join(os.getcwd(), 'public')
+    #public_dir = os.path.join(os.getcwd(), 'public')
+    public_dir = os.path.join(os.getcwd(), 'docs')
 
     if os.path.exists(public_dir):
         shutil.rmtree(public_dir)
@@ -35,8 +36,9 @@ def generate_pages(basepath):
     """
     content_dir = os.path.join(os.getcwd(), 'content')
     template_path = os.path.join(os.getcwd(), 'template.html')
-    public_dir = os.path.join(os.getcwd(), 'public')
-    generate_pages_directories(content_dir, public_dir, template_path)
+    #public_dir = os.path.join(os.getcwd(), 'public')
+    public_dir = os.path.join(os.getcwd(), 'docs')
+    generate_pages_directories(content_dir, public_dir, template_path, basepath)
 
 def generate_pages_directories(content_dir, public_dir, template_path, basepath):
     for filename in os.listdir(content_dir):
@@ -46,7 +48,7 @@ def generate_pages_directories(content_dir, public_dir, template_path, basepath)
             new_public_dir = os.path.join(public_dir, filename)
             os.mkdir(new_public_dir)
             new_content_dir = os.path.join(content_dir, filename)
-            generate_pages_directories(new_content_dir, new_public_dir, template_path)
+            generate_pages_directories(new_content_dir, new_public_dir, template_path, basepath)
         elif os.path.isfile(os.path.join(content_dir, filename)) and filename.endswith('.md'):
             #print(f"Generating page for {filename}")
             from_path = os.path.join(content_dir, filename)
